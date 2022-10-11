@@ -47,9 +47,13 @@ workflows:
       - build
       - test:
           requires:
-          - build
-      - dev
-      - uat
+            - build
+      - dev:
+          requires:
+            - test
+      - uat:
+          requires:
+            - test
       - prd:
           requires:
             - uat

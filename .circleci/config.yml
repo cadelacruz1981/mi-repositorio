@@ -5,20 +5,18 @@ jobs:
   build:
     docker:
       - image: circleci/node:8
-        
     
-        
     steps:
       - checkout
       - run: echo "this is the build job"
-  test:
+  testing:
     docker:
       - image: circleci/node:8
         
     steps:
       - checkout
       - run: echo "this is the test job"
-  dev:
+  development:
     docker:
       - image: circleci/node:8
     
@@ -32,7 +30,7 @@ jobs:
     steps:
       - checkout
       - run: echo "this is the UAT Deploy Job"
-  prd:
+  production:
     docker:
       - image: circleci/node:8
     
@@ -45,16 +43,16 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - test:
+      - testing:
           requires:
             - build
-      - dev:
+      - development:
           requires:
-            - test
+            - testing
       - uat:
           requires:
-            - test
-      - prd:
+            - testing
+      - production:
           requires:
             - uat
 
